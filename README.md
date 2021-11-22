@@ -81,4 +81,31 @@ This approach needs to be revisited with a more secure option when this process 
 
 At this point OpenShift GitOps `Application` resources can be created. This will cause the OpenShift GitOps operator to enter the app into ArgoCD, which will be responsible for synchronising the repository state into the target cluster. The target cluster does NOT need to be the cluster running OpenShift GitOps
 
-TODO: Install stuff with this method.
+
+### OpenShift Namespace
+
+By default OpenShift GitOps will only load resources from the `openshift-gitops` namespace. I did not try hard to find a method to make it load from other namespaces, but for complex use cases where it is being used to manage multiple other clusters it is advisable to have separate namespaces for each cluster being managed.
+
+### ArgoCD Projects
+
+An ArgoCD `Project` MUST be created prior to being mentioned in an `Application` resource. An example can be found [here](manifests/pao/nova_project.yml).
+The `Project` provides enforcement within ArgoCD itself for which repositories are allowed to be pulled, clusters and namespaces that can be targetted.
+
+**Both the included `default` project and the example `nova_project.yml` are maximally permissive.**
+
+
+
+
+# TODO: Deploy PAO from Nova to DB5
+
+See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/cluster_setup/README.md)
+
+# TODO: Automate steps so far
+
+# TODO: Get GitOps best practice understanding for repo structure and templating
+
+
+https://docs.google.com/document/d/1147S5yOdj5Golj3IrTBeeci2E1CjAkieGCcl0w90BS8/edit#
+
+
+https://github.com/siamaksade/openshift-gitops-getting-started#configure-openshift-with-argo-cd

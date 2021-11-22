@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pao
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-operators
+    server: https://kubernetes.default.svc
+  project: nova.cars.lab # argoCD project name. Suggest cluster name
+  source:
+    path: manifests/pao # path in the repo
+    repoURL: 'https://github.com/crwr45/gitops-notes'
+    targetRevision: notes # branch name
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
