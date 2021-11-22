@@ -59,6 +59,7 @@ At this point the OpenShift GitOps-installed ArgoCD web GUI should be accessible
 The `ServiceAccount` that is used by ArgoCD (`serviceaccount/openshift-gitops-argocd-application-controller`) to make changes to the cluster is not made a cluster Admin by default. This means that it will need to be given permissions to take whatever actions are required. The easiest way to do this for now is to create a `ClusterRoleBinding` to give the `ServiceAccount` full cluster Admin priviledges.
 
 ```yaml
+# gitops_cluster_admin.yml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
