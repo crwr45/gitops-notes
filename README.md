@@ -92,3 +92,20 @@ An ArgoCD `Project` MUST be created prior to being mentioned in an `Application`
 The `Project` provides enforcement within ArgoCD itself for which repositories are allowed to be pulled, clusters and namespaces that can be targetted.
 
 **Both the included `default` project and the example `nova_project.yml` are maximally permissive.**
+
+
+
+
+# TODO: Deploy PAO from Nova to DB5
+
+See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/cluster_setup/README.md)
+
+# TODO: Automate steps so far
+
+# TODO: Get GitOps best practice understanding for repo structure and templating
+
+
+https://docs.google.com/document/d/1147S5yOdj5Golj3IrTBeeci2E1CjAkieGCcl0w90BS8/edit#
+
+
+https://github.com/siamaksade/openshift-gitops-getting-started#configure-openshift-with-argo-cd
