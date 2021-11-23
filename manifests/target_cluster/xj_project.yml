@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: xj.cars.lab
+  namespace: openshift-gitops
+spec:
+  destinations:
+    - name: xj.cars.lab
+      namespace: nova-gitops-resources
+      server: 'https://api.xj.cars.lab:6443'
+  sourceRepos:
+    - '*'
