@@ -95,8 +95,7 @@ The `Project` provides enforcement within ArgoCD itself for which repositories a
 
 
 
-
-# TODO: Deploy PAO from Nova to DB5
+## Connecting to another cluster
 
 See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/cluster_setup/README.md)
 
