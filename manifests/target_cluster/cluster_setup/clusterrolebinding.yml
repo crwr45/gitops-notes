@@ -9,4 +9,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: argocd-manager
-  namespace: nova-gitops-manager
+  namespace: argocd-manager
