@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks/setup_gitops.yml
+
+- import_playbook: playbooks/setup_target.yml

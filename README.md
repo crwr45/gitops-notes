@@ -94,17 +94,18 @@ The `Project` provides enforcement within ArgoCD itself for which repositories a
 **Both the included `default` project and the example `nova_project.yml` are maximally permissive.**
 
 
-
 ## Connecting to another cluster
 
-See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/cluster_setup/README.md)
+See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/README.md)
 
-# TODO: Automate steps so far
+
+## Automated Setup
+
+Some fairly crude Ansible playbooks are included that automate the configuration of two clusters with OpenShift GitOps. `site.yml` will install GitOps on the source cluster, grant it cluster admin permissions. Then on the target cluster create a Namespace, ServiceAccount, give it permissions, and then add a record back into the source cluster to allow ArgoCD to authenticate against the target cluster and manage it.
+
+```shell
+ansible-playbook -i inventory.yml site.yml
+```
+
 
 # TODO: Get GitOps best practice understanding for repo structure and templating
-
-
-https://docs.google.com/document/d/1147S5yOdj5Golj3IrTBeeci2E1CjAkieGCcl0w90BS8/edit#
-
-
-https://github.com/siamaksade/openshift-gitops-getting-started#configure-openshift-with-argo-cd

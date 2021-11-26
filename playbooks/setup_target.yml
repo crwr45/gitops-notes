@@ -1,0 +1,7 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+    - target: "{{ target_cluster }}"
+    - argo_cluster: "{{ source_cluster }}"
+  roles:
+    - name: setup_target

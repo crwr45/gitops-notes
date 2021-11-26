@@ -9,9 +9,9 @@ spec:
     server: https://api.xj.cars.lab:6443
   project: xj.cars.lab # argoCD project name
   source:
-    path: manifests/pao # path in the repo
+    path: manifests/pao_demo # path in the repo
     repoURL: 'https://github.com/crwr45/gitops-notes'
-    targetRevision: notes # branch name
+    targetRevision: main # branch name
   syncPolicy:
     automated:
       prune: true
