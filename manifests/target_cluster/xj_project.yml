@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: xj.cars.lab
+  name: xj.cars.lab # This is the name of the Argo project as well as the OCP resource
   namespace: openshift-gitops
 spec:
   destinations:
-    - name: xj.cars.lab
-      namespace: nova-gitops-resources
+    - name: https://api.xj.cars.lab:6443
+      namespace: '*'
       server: 'https://api.xj.cars.lab:6443'
   sourceRepos:
     - '*'
