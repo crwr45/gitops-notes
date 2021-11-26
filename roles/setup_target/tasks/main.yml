@@ -1,0 +1,62 @@
+- name: Create Namespace
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    state: present
+    resource_definition: "{{ lookup('template', 'templates/namespace.yml.j2') }}"
+
+- name: Render ServiceAccount definition
+  set_fact:
+    service_account_def: "{{ lookup('template', 'templates/service_account.yml.j2') }}"
+
+- name: Create Service Account
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    state: present
+    resource_definition: "{{ service_account_def }}"
+
+- name: Create Cluster Role
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    state: present
+    resource_definition: "{{ lookup('template', 'templates/cluster_role.yml.j2') }}"
+
+- name: Create Cluster Role Binding
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    state: present
+    resource_definition: "{{ lookup('template', 'templates/cluster_role_binding.yml.j2') }}"
+
+- name: Get SA Token Info
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    resource_definition: "{{ service_account_def }}"
+  register: sa_token_check
+  retries: 30
+  delay: 1
+  until: sa_token_check.result.secrets | length > 0
+
+- name: Get Token Name
+  set_fact:
+    token_name: "{{ sa_token_check.result.secrets[0].name }}"
+
+- name: Get Auth Token and Certificate Data from {{ target.name }}
+  kubernetes.core.k8s:
+    host: "{{ target.api }}"
+    kubeconfig: "{{ target.kubeconfig_path }}"
+    kind: Secret
+    name: "{{ token_name }}"
+    namespace: argocd-manager
+  register: token_data
+
+- name: Install Cluster Definition
+  kubernetes.core.k8s:
+    host: "{{ argo_cluster.api }}"
+    kubeconfig: "{{ argo_cluster.kubeconfig_path }}"
+    state: present
+    resource_definition: "{{ lookup('template', 'templates/cluster_secret.yml.j2') }}"
+  

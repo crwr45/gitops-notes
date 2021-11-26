@@ -1,0 +1,6 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+    - cluster: "{{ source_cluster }}"
+  roles:
+    - name: setup_gitops

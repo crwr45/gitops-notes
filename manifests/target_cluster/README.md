@@ -2,7 +2,21 @@
 
 Steps adapted from [here](https://inlets.dev/blog/2021/06/02/argocd-private-clusters.html) and [here](https://argo-cd.readthedocs.io/en/stable/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
 
+
+
+## Create Resources
+
 To manage a remote cluster, ArgoCD needs to be able to authenticate. For this purpose, create a `Namespace`, `ServiceAccount`, permissive `Role` and `ClusterRoleBinding` on the TARGET cluster.
+
+```shell
+oc apply -f manifests/target_cluster/cluster_setup/namespace.yml
+oc apply -f manifests/target_cluster/cluster_setup/serviceaccount.yml
+oc apply -f manifests/target_cluster/cluster_setup/clusterrole.yml
+oc apply -f manifests/target_cluster/cluster_setup/clusterrolebinding.yml
+```
+
+
+## Authenticating
 
 Find the right secret:
 
