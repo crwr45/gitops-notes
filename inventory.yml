@@ -1,0 +1,12 @@
+all:
+  vars:
+    source_cluster:
+      api: https://api.nova.cars.lab:6443
+      name: nova
+      kubeconfig_path: /home/redhat/nova-kubeconfig
+
+    target_cluster:
+      api: https://api.xj.cars.lab:6443
+      name: xj
+      kubeconfig_path: /home/redhat/xj-kubeconfig
+   

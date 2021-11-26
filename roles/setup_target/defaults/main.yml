@@ -1,0 +1,6 @@
+target_namespace: argocd-manager
+service_account_name: argocd-manager
+cluster_role_name: argocd-manager-role
+cluster_role_binding_name: argocd-manager-role-binding
+
+argo_namespace: openshift-gitops

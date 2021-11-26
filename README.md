@@ -97,7 +97,7 @@ The `Project` provides enforcement within ArgoCD itself for which repositories a
 
 ## Connecting to another cluster
 
-See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/cluster_setup/README.md)
+See [manifests/target_cluster/cluster_setup/README.md](manifests/target_cluster/README.md)
 
 # TODO: Automate steps so far
 

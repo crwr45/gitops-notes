@@ -1,0 +1,24 @@
+- name: Add the Subscription
+  kubernetes.core.k8s:
+    host: "{{ cluster.api }}"
+    kubeconfig: "{{ cluster.kubeconfig_path }}"
+    state: present
+    src: files/subscription.yml
+  register: subscription_install
+
+- name: Wait for OpenShift GitOps Operator to install
+  kubernetes.core.k8s:
+    host: "{{ cluster.api }}"
+    kubeconfig: "{{ cluster.kubeconfig_path }}"
+    src: files/subscription.yml
+  register: subscription_install
+  until: subscription_install.result.status.state == "AtLatestKnown"
+  retries: 30
+  delay: 6
+
+- name: Grant ClusterAdmin to GitOps ServiceAccount
+  kubernetes.core.k8s:
+    host: "{{ cluster.api }}"
+    kubeconfig: "{{ cluster.kubeconfig_path }}"
+    state: present
+    src: files/gitops_cluster_admin.yml
