@@ -12,8 +12,11 @@
     kubeconfig: "{{ cluster.kubeconfig_path }}"
     src: files/subscription.yml
   register: subscription_install
-  until: subscription_install.result.status.state == "AtLatestKnown"
-  retries: 30
+  until:
+    - subscription_install.result is defined
+    - subscription_install.result.status is defined
+    - subscription_install.result.status.state == "AtLatestKnown"
+  retries: 60
   delay: 6
 
 - name: Grant ClusterAdmin to GitOps ServiceAccount

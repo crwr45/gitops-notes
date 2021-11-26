@@ -38,11 +38,18 @@
   register: sa_token_check
   retries: 30
   delay: 1
-  until: sa_token_check.result.secrets | length > 0
+  until:
+    - sa_token_check.result.secrets is defined
+    - sa_token_check.result.secrets | length > 0
+    - sa_token_check.result.secrets | to_json | from_json | json_query('[?contains(name, `token`)].name') | length > 0
+    # https://github.com/ansible/ansible/issues/27299#issuecomment-331068246
+
+- debug:
+    msg: "{{ sa_token_check.result.secrets | to_json | from_json | json_query('[?contains(name, `token`)].name') }}"
 
 - name: Get Token Name
   set_fact:
-    token_name: "{{ sa_token_check.result.secrets[0].name }}"
+    token_name: "{{ sa_token_check.result.secrets | to_json | from_json | json_query('[?contains(name, `token`)].name') | join('') }}"
 
 - name: Get Auth Token and Certificate Data from {{ target.name }}
   kubernetes.core.k8s:
