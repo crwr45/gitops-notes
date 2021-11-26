@@ -7,13 +7,13 @@ To manage a remote cluster, ArgoCD needs to be able to authenticate. For this pu
 Find the right secret:
 
 ```shell
-oc get sa -n nova-gitops-manager nova-manager -o jsonpath='{.secrets}{"\n"}'
+oc get sa -n nova-gitops-manager argocd-manager -o jsonpath='{.secrets}{"\n"}'
 ```
 
 get the token data from it
 ```shell
-oc get -n nova-gitops-manager secret/nova-manager-token-vxj2p -o jsonpath='{.data.token}' | base64 --decode
-oc get -n nova-gitops-manager secret/nova-manager-token-vxj2p -o jsonpath='{.data.ca\.crt}{"\n"}'
+oc get -n nova-gitops-manager secret/argocd-manager-token-vxj2p -o jsonpath='{.data.token}' | base64 --decode
+oc get -n nova-gitops-manager secret/argocd-manager-token-vxj2p -o jsonpath='{.data.ca\.crt}{"\n"}'
 ```
 
 Add the token to the source cluster:
